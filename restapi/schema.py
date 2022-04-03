@@ -17,4 +17,3 @@ class Pagination(BaseModel):
     page: Optional[int] = Field(1, title="页数")
     page_size: Optional[int] = Field(10, title="每页数量")
     total: Optional[int] = Field(0, title="总数量")
-    total_page: Optional[int] = Field(0, title="总页数")

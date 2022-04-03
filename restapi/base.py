@@ -2,7 +2,9 @@ import decimal
 from typing import Optional
 
 import orjson
+from django.http import JsonResponse
 from ninja import NinjaAPI
+from ninja.errors import ValidationError, HttpError
 from ninja.renderers import BaseRenderer
 
 
@@ -21,3 +23,22 @@ class ORJSONRenderer(BaseRenderer):
 api = NinjaAPI(title="Factory API", version="v1.0", renderer=ORJSONRenderer())
 
 
+# @api.exception_handler(ValidationError)
+# def validation_errors(request, exc: ValidationError):
+#     print("ssdsadadasdsdsdsds")
+#     print(exc)
+#     return JsonResponse({
+#         "code": "500",
+#         "desc": f"{exc}"
+#     })
+#
+#
+# @api.exception_handler(HttpError)
+# def validation_errors(request, exc: HttpError):
+#     print("sssssssssssss")
+#     print(exc)
+#     return JsonResponse({
+#         "code": "500",
+#         "desc": f"{exc}"
+#     },
+#     status=400)
