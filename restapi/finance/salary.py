@@ -1,3 +1,4 @@
+import datetime
 from typing import Optional
 
 from ninja import Query
@@ -75,6 +76,7 @@ def get_salary_info(request,
     total = salary.count()
     page_info = PageUtil(page, page_size)
     list_data = list(salary.all()[page_info.start():page_info.end()])
+    print(list_data[0].__dict__)
     return {
         "list": list_data,
         "pagination": handle_pagination(page, page_size, total)
@@ -82,32 +84,19 @@ def get_salary_info(request,
 
 
 @api.get(
-    "/finance/info",
-    response=Optional[SalarySchema],
+    "/finance/person",
+    response=ListRsp[SalarySchema],
     tags=["工资管理"],
     summary="个人工资信息"
 )
-def get_user_salary(request,
-                    page: int = 1,
-                    page_size: int = 10,
-                    ):
+def update_salary_info(request):
     user = get_user_info(request)
-    salary = Salary.objects.objects.filter(staff_name__id=user.get("id"))
-    total = salary.count()
-    page_info = PageUtil(page, page_size)
-    list_data = list(salary.all()[page_info.start():page_info.end()])
+    salary = Salary.objects.filter(staff_name__id=user.get("id"))
+    now_date = datetime.datetime.now()
+    star_date = datetime.date(now_date.year - 1, now_date.month, day=1)
+    salary = salary.filter(current_time__range=[star_date, now_date])
+    list_data = list(salary.order_by('-current_time').all())
     return {
         "list": list_data,
-        "pagination": handle_pagination(page, page_size, total)
+        "pagination": handle_pagination(1, 1, 0)
     }
-
-
-@api.put(
-    "/finance/update",
-    response=Optional[ApiResponse],
-    tags=["工资管理"],
-    summary="个人工资信息"
-)
-def update_salary_info(request,
-                       ):
-    ...

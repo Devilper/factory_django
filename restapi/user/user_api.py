@@ -7,6 +7,7 @@ from ninja import Query
 from restapi import api
 from restapi.schema import ApiResponse, ApiError
 from restapi.user.schema import UserRep, LoginRsp, LoginRep, UserListRsp, UserInfoRsp, MenuTreeRsp
+from restapi.views import get_user_info
 from unit.commmon import PageUtil, handle_pagination
 from unit.custom_jwt import get_jwt_token, decode_jwt
 from user.models import UserProfile, Role
@@ -76,7 +77,7 @@ def get_user_list(request,
     tags=["用户"],
     summary="查询员工信息"
 )
-def get_user_info(request, u_id: Optional[int] = Query(None, title="")):
+def get_users_info(request, u_id: Optional[int] = Query(None, title="")):
     user = UserProfile.objects.filter(id=u_id)
     if not user.first():
         return UserInfoRsp(
@@ -192,4 +193,26 @@ def get_menu_tree(request):
     menu_tree = [menu for menu in menus_dict.values()]
     return {
         "list": menu_tree
+    }
+
+
+@api.get(
+    "/user/person",
+    response=Optional[UserInfoRsp],
+    tags=["用户"],
+    summary="查询员工信息"
+)
+def get_user(request):
+    user_info = get_user_info(request)
+    print(user_info)
+    user = UserProfile.objects.filter(id=user_info.get("id"))
+    if not user.first():
+        return UserInfoRsp(
+            error=ApiError(
+                code=400,
+                desc="数据未找到"
+            )
+        )
+    return {
+        "data": user.first()
     }

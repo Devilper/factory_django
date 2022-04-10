@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from user.models import UserProfile
 
 
 class Salary(models.Model):  # 工资
@@ -26,3 +27,18 @@ class Salary(models.Model):  # 工资
         ordering = ['-current_time']
         verbose_name = "工资信息"
         verbose_name_plural = verbose_name
+
+
+class Attendance(models.Model):  # 考勤
+    current_time = models.DateField(verbose_name="日期")
+    staff_name = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="姓名")
+    flag_leave = models.BooleanField(default=False, verbose_name="请假")
+    flag_business = models.BooleanField(default=False, verbose_name="出差")
+    start_time = models.DateTimeField(verbose_name="上班时间")
+    end_time = models.DateTimeField(verbose_name="下班时间")
+    supplement = models.CharField(max_length=100, verbose_name="补充", null=True, default='无', blank=True)
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ['-current_time']
+        unique_together = ('current_time', 'staff_name')

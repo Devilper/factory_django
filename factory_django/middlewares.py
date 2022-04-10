@@ -19,6 +19,7 @@ class RequestMiddleware:
             token = request.META.get("HTTP_AUTHORIZATION")
             if token:
                 user_info = decode_jwt(token)
+                print(f"user_info:{user_info}")
                 setattr(request, "user", user_info)
             else:
                 raise ValueError()

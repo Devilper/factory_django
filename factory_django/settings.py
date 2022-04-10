@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'user',
     'finance',
     'facility',
+    'warehouse',
+    "order",
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'factory_django.middlewares.RequestMiddleware',
+    'factory_django.middlewares.RequestMiddleware',
 ]
 
 ROOT_URLCONF = 'factory_django.urls'
@@ -123,7 +125,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -161,3 +163,5 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
+
+BASE_WORK_TIME = 8*60*60
