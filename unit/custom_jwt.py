@@ -1,11 +1,8 @@
 from datetime import datetime, timedelta
 
 import jwt
-from jwt import ExpiredSignatureError
-from ninja.errors import ValidationError, HttpError
 
 from factory_django.settings import JWT_SECRET_KEY
-from restapi.schema import ApiResponse, ApiError
 
 
 def get_jwt_token(username, staff_code, u_id):
