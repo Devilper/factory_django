@@ -7,7 +7,8 @@ services:
     ports:
       - '8000:8000'
     networks:
-      - my-net
+      my-net:
+        ipv4_address: 172.21.0.3
 networks:
   my-net:
     external: true
