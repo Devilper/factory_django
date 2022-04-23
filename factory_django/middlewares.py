@@ -5,7 +5,8 @@ from unit.custom_jwt import decode_jwt
 
 
 WHITE_LIST = [
-    '/api/login'
+    '/api/login',
+    '/admin'
 ]
 
 
