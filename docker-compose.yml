@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: factory_django
+    restart: always
+    ports:
+      - '8000:8000'
+    networks:
+      - my-net
+networks:
+  my-net:
+    external: true
