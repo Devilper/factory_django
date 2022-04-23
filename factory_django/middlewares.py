@@ -1,14 +1,11 @@
 from django.http import JsonResponse
-from django.utils.deprecation import MiddlewareMixin
-
-from restapi.base import ORJSONRenderer
-from restapi.schema import ApiError, ApiResponse
 from unit.custom_jwt import decode_jwt
 
 
 WHITE_LIST = [
     '/api/login/',
-    '/admin/'
+    '/admin/',
+    '/user/create/'
 ]
 
 
