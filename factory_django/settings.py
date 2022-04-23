@@ -162,6 +162,7 @@ CORS_ALLOW_HEADERS = (
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'Authorization'
 )
 
 BASE_WORK_TIME = 8*60*60
