@@ -76,7 +76,6 @@ def get_salary_info(request,
     total = salary.count()
     page_info = PageUtil(page, page_size)
     list_data = list(salary.all()[page_info.start():page_info.end()])
-    print(list_data[0].__dict__)
     return {
         "list": list_data,
         "pagination": handle_pagination(page, page_size, total)

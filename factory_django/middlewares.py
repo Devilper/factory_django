@@ -16,15 +16,15 @@ class RequestMiddleware:
     def __call__(self, request):
         path = request.path
         print(path)
-        # if path not in WHITE_LIST:
-        #     token = request.META.get("HTTP_AUTHORIZATION")
-        #     print("sdsfdads")
-        #     if token:
-        #         user_info = decode_jwt(token)
-        #         print(f"user_info:{user_info}")
-        #         setattr(request, "user", user_info)
-        #     else:
-        #         return JsonResponse(data={"code": 500, "msg": "请重新登录"})
+        if path not in WHITE_LIST:
+            token = request.META.get("HTTP_AUTHORIZATION")
+            print("sdsfdads")
+            if token:
+                user_info = decode_jwt(token)
+                print(f"user_info:{user_info}")
+                setattr(request, "user", user_info)
+            else:
+                return JsonResponse(data={"code": 500, "msg": "请重新登录"})
         response = self.get_response(request)
         return response
 
