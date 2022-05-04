@@ -15,7 +15,7 @@ class Orders(models.Model):  # 订单
     order_price = models.IntegerField(verbose_name="单价(元)")
     order_total_price = models.IntegerField(verbose_name="总价(元)")
     order_time = models.DateField(auto_now_add=True, verbose_name="订货时间")
-    order_end = models.DateField(verbose_name="交货时间")
+    order_end = models.DateField(verbose_name="交货时间", null=True)
     order_supplement = models.TextField(verbose_name="补充", null=True, blank=True)
     status = models.SmallIntegerField("订单状态", choices=OrderStatusChoice.choices,
                                       default=OrderStatusChoice.Reserve)
